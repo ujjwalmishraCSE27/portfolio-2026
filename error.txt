@@ -1,0 +1,34 @@
+Diagnosis
+
+Relevant error: line 62 shows Vite failed to resolve an import: "Could not resolve '../assets/tcs_logo.png' in src/data/certifications.js". Context is shown at lines 62–75.
+Error type and cause: UNRESOLVED_IMPORT — the build cannot find the image file referenced by src/data/certifications.js. This is usually because the image file is missing from the repo, the import path is incorrect (wrong relative path), or there is a case mismatch between the import and the actual filename (Linux builds are case-sensitive).
+You can inspect the file that imports the image here: https://github.com/ujjwalmishraCSE27/portfolio-2026/blob/main/src/data/certifications.js
+
+Solution
+
+Verify the asset exists and is committed
+
+Confirm that src/assets/tcs_logo.png actually exists in the repository and is committed. Check the src/assets directory on GitHub: https://github.com/ujjwalmishraCSE27/portfolio-2026/tree/main/src/assets
+If the file is missing, add it to src/assets and commit/push:
+Place the image at src/assets/tcs_logo.png
+git add src/assets/tcs_logo.png
+git commit -m "Add tcs_logo.png"
+git push
+If the file exists, check for path or case sensitivity problems
+
+Ensure the import string in src/data/certifications.js exactly matches the filename (including case). On Linux (Netlify build), "tcs_logo.png", "TCS_logo.png" and "tcs-Logo.png" are different.
+Example correct import at top of src/data/certifications.js:
+// JavaScript
+import tcsLogo from '../assets/tcs_logo.png';
+Or use the Vite URL form:
+// JavaScript
+const tcsLogo = new URL('../assets/tcs_logo.png', import.meta.url).href;
+Alternate: serve from public folder
+
+If you prefer not to import the asset, move it to the public folder (public/tcs_logo.png) and reference it by absolute path in your data (e.g. "/tcs_logo.png").
+Test locally then redeploy
+
+After fixing the file/path, run locally:
+npm install
+npm run build
+Commit changes and push — Netlify will re-run the build.
