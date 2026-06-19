@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Cabin+Sketch:wght@400;700&family=Inter:wght@400;500;600;700;800;900&family=Londrina+Sketch&family=Outfit:wght@300;400;500;600;700;800;950&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-sketchBg: #0a0a0a;
+  --color-sketchText: #ffffff;
+  --color-sketchSecondary: #d6d6d6;
+  --color-sketchAccent: #bfbfbf;
+
+  --font-sketch: "Black Ops One", system-ui, sans-serif;
+  --font-cabin: "Cabin Sketch", cursive, sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+  --font-space: "Space Grotesk", sans-serif;
+  --font-spacemono: "Space Mono", monospace;
+  --font-inter: "Inter", sans-serif;
+
+  --animate-scribble: scribble 0.2s steps(2) infinite;
+}
+
+@keyframes scribble {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-1px, 1px) rotate(0.2deg); }
+}
+
+/* Custom Base Styles */
+body {
+  background-color: #ffffff;
+  color: #1f2937;
+  font-family: 'Cabin Sketch', cursive, sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Black Ops One', system-ui, sans-serif;
+}
+
+/* Custom Cursor Tip */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s;
+}
+
+/* Film Grain Overlay - Localized */
+.grain-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 1;
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%, 100% { transform:translate(0, 0); }
+  10% { transform:translate(-5%, -10%); }
+  20% { transform:translate(-15%, 5%); }
+  30% { transform:translate(7%, -25%); }
+  40% { transform:translate(-5%, 25%); }
+  50% { transform:translate(-15%, 10%); }
+  60% { transform:translate(15%, 0%); }
+  70% { transform:translate(0%, 15%); }
+  80% { transform:translate(3%, 35%); }
+  90% { transform:translate(-10%, 10%); }
+}
+
+/* Draft Grid Overlay */
+.draft-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 40px 40px, 40px 40px, 8px 8px, 8px 8px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Grayscale Video Custom Adjustments */
+.sketch-video {
+  filter: grayscale(100%) contrast(110%) brightness(0.82) blur(3px);
+  mix-blend-mode: normal;
+  opacity: 0.92;
+  transition: filter 1s ease-in-out, opacity 1s ease-in-out, transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Active Zoom and Playing Video state */
+.sketch-video.playing {
+  filter: grayscale(0%) contrast(100%) brightness(1) blur(0px);
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+
+/* Rough Sketches Wobble Animation for Doodles */
+@keyframes sketch-wobble {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-1px, 1px) rotate(-0.5deg); }
+  50% { transform: translate(1px, -1px) rotate(0.5deg); }
+  75% { transform: translate(-1px, -1px) rotate(0deg); }
+  100% { transform: translate(0, 0) rotate(0.1deg); }
+}
+
+.wobble-sketch {
+  animation: sketch-wobble 0.35s steps(3) infinite;
+}
+
+.hover-wobble-sketch:hover {
+  animation: sketch-wobble 0.25s steps(4) infinite;
+}
+
+/* CSS transition for loading path */
+.loading-path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 768px) {
+  html, body, a, button, [role="button"] {
+    cursor: none !important;
+  }
+}
+
+/* Neon Glow Filters for Winding Road */
+.neon-glow-cyan {
+  filter: drop-shadow(0 0 5px rgba(0, 242, 254, 0.7)) drop-shadow(0 0 12px rgba(0, 242, 254, 0.4));
+}
+.neon-glow-pink {
+  filter: drop-shadow(0 0 5px rgba(255, 0, 127, 0.7)) drop-shadow(0 0 12px rgba(255, 0, 127, 0.4));
+}
+.neon-glow-orange {
+  filter: drop-shadow(0 0 5px rgba(255, 159, 67, 0.7)) drop-shadow(0 0 12px rgba(255, 159, 67, 0.4));
+}
+.neon-glow-purple {
+  filter: drop-shadow(0 0 5px rgba(140, 122, 230, 0.7)) drop-shadow(0 0 12px rgba(140, 122, 230, 0.4));
+}
+
+/* Retro Cyber Grid Background */
+.cyber-grid {
+  background-size: 50px 50px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+}
+
+/* Retro 3D Extrusion Text Effect */
+.retro-3d-text {
+  font-family: 'Black Ops One', system-ui, sans-serif;
+  color: #ffffff;
+  text-shadow: 
+    1px 1px 0px #ff007f,
+    2px 2px 0px #ff007f,
+    3px 3px 0px #ff007f,
+    4px 4px 0px #00f2fe,
+    5px 5px 0px #00f2fe,
+    6px 6px 0px #00f2fe,
+    8px 8px 12px rgba(0, 0, 0, 0.9);
+}
+
+/* Soft Neon Glow Text Pulse */
+@keyframes neon-glow-pulse {
+  0%, 100% { 
+    text-shadow: 0 0 2px rgba(0, 242, 254, 0.1);
+    color: rgba(214, 214, 214, 0.9);
+  }
+  50% { 
+    text-shadow: 0 0 8px rgba(0, 242, 254, 0.5), 0 0 15px rgba(0, 242, 254, 0.2);
+    color: rgba(255, 255, 255, 1);
+  }
+}
+.neon-text-pulse {
+  animation: neon-glow-pulse 4s infinite ease-in-out;
+}
+
+/* Premium SaaS Glassmorphism Card and Spotlight Styles in Light Mode */
+.project-card-glass {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.4s ease;
+}
+
+.project-card-glass:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.08);
+}
+
+/* Spotlight Overlay following cursor - light mode */
+.spotlight-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    450px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    rgba(0, 0, 0, 0.015),
+    transparent 80%
+  );
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card-glass:hover .spotlight-overlay {
+  opacity: 1;
+}
+
+/* Spotlight Border following cursor (mask composite) */
+.spotlight-border {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    350px circle at var(--mouse-x, 0px) var(--mouse-y, 0px),
+    var(--glow-color, rgba(255, 255, 255, 0.2)),
+    transparent 80%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card-glass:hover .spotlight-border {
+  opacity: 1;
+}
+
+/* Floating Animation for Tech Badges */
+@keyframes tech-badge-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.tech-badge-hover:hover {
+  animation: tech-badge-float 2s ease-in-out infinite;
+}
+
+/* Ambient Radial Blur Orbs */
+.ambient-orb {
+  filter: blur(140px);
+  opacity: 0.15;
+  mix-blend-mode: plus-lighter;
+  pointer-events: none;
+}
+
+/* Workspace & Desk Keyframes */
+@keyframes steam-rise {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.6;
+  }
+  85% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-50px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+.animate-steam {
+  animation: steam-rise 4s ease-in-out infinite;
+}
+
+@keyframes terminal-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: terminal-blink 1s step-end infinite;
+}
+
+@keyframes led-blink {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 1px currentColor); }
+  50% { opacity: 0.3; filter: none; }
+}
+
+.animate-led {
+  animation: led-blink 1.5s ease-in-out infinite;
+}
+
+/* Notebook Folds and Rotations */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+/* Pencil Drawn Outline Keyframe Animation */
+@keyframes draw-desk-outline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-draw-path {
+  animation: draw-desk-outline 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Hand Drawn Sketch Wobble effect for Desk items */
+.desk-sketch-wiggle:hover {
+  animation: sketch-wobble 0.3s steps(3) infinite;
+}
+
+/* Premium layered background system styles */
+.paper-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.025; /* 2.5% opacity for premium editorial paper noise */
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+.blueprint-grid-80 {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-size: 80px 80px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.018) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
+  z-index: 1;
+}
+
+
