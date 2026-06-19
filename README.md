@@ -1,16 +1,32 @@
-# React + Vite
+# Portfolio 2026
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive developer portfolio built with React, Vite, Tailwind CSS, GSAP, and Framer Motion.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Animated hero, journey, skills, projects, experience, achievements, and contact sections
+- Project detail pages and certification views
+- Netlify serverless contact endpoint for email delivery
+- Responsive Vite production build
 
-## React Compiler
+## Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm install
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Build
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm run build
+```
+
+## Environment
+
+Set these variables in Netlify for contact form email delivery:
+
+```txt
+RESEND_API_KEY=your_resend_api_key
+CONTACT_FROM_EMAIL=Portfolio Contact <your_verified_sender>
+```
